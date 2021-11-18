@@ -12,6 +12,7 @@ from pip._internal.commands import create_command
 from pip._internal.req import InstallRequirement
 from pip._internal.req.constructors import install_req_from_line
 from pip._internal.utils.misc import redact_auth_from_url
+from pip._vendor.packaging.markers import Marker
 
 from .._compat import IS_CLICK_VER_8_PLUS, parse_requirements
 from ..cache import DependencyCache
@@ -272,6 +273,7 @@ def cli(
 ) -> None:
     """Compiles requirements.txt from requirements.in specs."""
     log.verbosity = verbose - quiet
+    print("----HERE----")
 
     if len(src_files) == 0:
         if os.path.exists(DEFAULT_REQUIREMENTS_FILE):
@@ -441,6 +443,11 @@ def cli(
     constraints = [req for req in constraints if req.match_markers(extras)]
     for req in constraints:
         drop_extras(req)
+    print('----YYYYY---')
+    for req in constraints:
+        print('----XXXXX---')
+        print(req.markers)
+        #  req.markers = Marker("sys_platform == 'manylinux1_x86_64'")
 
     log.debug("Using indexes:")
     with log.indentation():

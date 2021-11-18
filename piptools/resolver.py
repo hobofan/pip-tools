@@ -159,6 +159,7 @@ class Resolver:
             self.dependency_cache.clear()
             self.repository.clear_caches()
 
+        print("----THERE----")
         # Ignore existing packages
         with update_env_context_manager(PIP_EXISTS_ACTION="i"):
             for current_round in count(start=1):  # pragma: no branch
@@ -298,6 +299,7 @@ class Resolver:
         """
         # Sort this list for readability of terminal output
         constraints = sorted(self.constraints, key=key_from_ireq)
+        [print(ireq.markers) for ireq in constraints]
 
         log.debug("Current constraints:")
         with log.indentation():
